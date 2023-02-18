@@ -1,7 +1,7 @@
 ---
 layout: single
 title: Flight - HackTheBox
-excerpt: " Hard box in which the Windows "smb" service is listed, as well as using password cracking techniques, RFI, Port Forwarding, etc. "
+excerpt: " Hard box in which the Windows 'smb' service is listed, as well as using password cracking techniques, RFI, Port Forwarding, etc. "
 date: 2023-02-18
 classes: wide
 header:
