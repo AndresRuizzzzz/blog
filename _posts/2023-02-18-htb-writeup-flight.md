@@ -7,7 +7,7 @@ classes: wide
 header:
   teaser: /blog/assets/images/htb-writeup-flight/Flight.png
   teaser_home_page: true
-  icon: /blog/assets/images/HTB.webp
+  icon: /blog/assets/images/htb.webp
 categories:
   - hackthebox
 tags:
