@@ -18,7 +18,7 @@ minimal_mistakes_skin    : "haxor" # "air", "aqua", "contrast", "dark", "dirt", 
 locale                   : "en-US"
 title                    : "D4nt3"
 title_separator          : "-"
-name                     : "Alberto Carrasco (Aka. D4nt3)"
+name                     : "Alberto Carrasco"
 description              : "Posts about security, CTFs, networking and more"
 url                      : "https://d4nt3.github.io/" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
@@ -101,7 +101,7 @@ analytics:
 
 # Site Author
 author:
-  name             : "Alberto Carrasco Ruiz"
+  name             : "Alberto Carrasco Ruiz (Aka. D4nt3)"
   avatar           : "/assets/images/avatar.jpg"
   bio              : "Cybersecurity enthusiast | ICT Engineer | Computer Technician"
   location         : "Ecuador"
