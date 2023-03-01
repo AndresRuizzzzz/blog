@@ -1,7 +1,7 @@
 ---
 layout: single
 title: Escape - HackTheBox
-excerpt: " Medium-level machine, where the "SQL Server management studio" tool is exploited, in addition to making use of vulnerable certificates for privilege escalation. "
+excerpt: " Medium-level machine, where the 'SQL Server management studio' tool is exploited, in addition to making use of vulnerable certificates for privilege escalation. "
 date: 2023-02-28
 classes: wide
 header:
