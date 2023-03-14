@@ -5,7 +5,7 @@ excerpt: " Difficulty: easy/medium... Keep in mind it's still just a CTF. It's m
 date: 2023-03-14
 classes: wide
 header:
-  teaser: /blog/assets/images/vh-writeup-shuriken/Shuriken.png
+  teaser: /blog/assets/images/vh-writeup-shuriken/Shuriken1.png
   teaser_home_page: true
   icon: /blog/assets/images/vulnhub.webp
 categories:
