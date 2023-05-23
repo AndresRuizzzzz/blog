@@ -2,7 +2,7 @@
 layout: single
 title: Interface - HackTheBox
 excerpt: " A box that sees a lot of fuzzing, plus exploits targeting 'dompdf' with relatively easy privilege escalation. "
-date: 2023-02-13
+date: 2023-05-23
 classes: wide
 header:
   teaser: /blog/assets/images/htb-writeup-interface/interface.png
