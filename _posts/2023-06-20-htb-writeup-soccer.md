@@ -2,7 +2,7 @@
 layout: single
 title: Soccer - HackTheBox
 excerpt: " This CTF focuses on success through enumeration. "
-date: 2022-06-20
+date: 2023-06-20
 classes: wide
 header:
   teaser: /blog/assets/images/htb-writeup-soccer/soccer.png
