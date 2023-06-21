@@ -144,5 +144,5 @@ bash -P
 
 
 <p style="text-align: center;">
-<img src="/assets/images/htb-writeup-soccer/soccer.png">
+<img src="/blog/assets/images/htb-writeup-soccer/soccer.png">
 </p>
