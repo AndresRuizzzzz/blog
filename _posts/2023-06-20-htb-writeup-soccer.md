@@ -137,3 +137,10 @@ bash -P
 ```
 
 - Ya somos ROOT y obtenemos la flag.
+
+
+
+# Holaaaaaaaaaaaaaaa
+
+
+![[DedSec_logo.webp]]
