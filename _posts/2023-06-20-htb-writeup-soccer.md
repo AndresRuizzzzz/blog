@@ -143,4 +143,4 @@ bash -P
 # Holaaaaaaaaaaaaaaa
 
 
-![](blog/_posts/images/soccer/DedSec_logo.webp)
+![](../images/soccer/DedSec_logo.webp)
