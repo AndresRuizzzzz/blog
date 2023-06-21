@@ -18,6 +18,13 @@ tags:
 
 This CTF focuses on success through enumeration.
 
+<p style="text-align: center;">
+<img src="/blog/assets/images/htb-writeup-soccer/soccer.png">
+</p>
+
+
+
+
 # Summary
 - IP: 10.10.11.194
 - Ports: 22,80,9091
@@ -138,11 +145,3 @@ bash -P
 
 - Ya somos ROOT y obtenemos la flag.
 
-
-
-# Holaaaaaaaaaaaaaaa
-
-
-<p style="text-align: center;">
-<img src="/blog/assets/images/htb-writeup-soccer/soccer.png">
-</p>
