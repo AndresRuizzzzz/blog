@@ -1,7 +1,7 @@
 ---
 layout: single
 title: Cerberus - HackTheBox
-excerpt: " Una máquina desafiante en la que explotaremos un Icinga Web 2 y abusaremos de Firejail como también de un remote port forawrding. "
+excerpt: " Una máquina desafiante en la que explotaremos un Icinga Web 2 y abusaremos de Firejail como también de un remote port forwarding. "
 date: 2023-08-14
 classes: wide
 header:
